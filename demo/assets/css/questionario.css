@@ -39,8 +39,8 @@ body {
 
 @media (max-width: 767px) {
   body {
-    padding-top: calc(env(safe-area-inset-top, 0px) + 10.5rem);
-    padding-bottom: 1.25rem;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 5rem);
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 6.75rem);
   }
 }
 
@@ -93,6 +93,10 @@ body {
 .nav-panel {
   backdrop-filter: blur(12px);
   box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+}
+
+.nav-panel {
+  margin-bottom: 1.1rem;
 }
 
 body.name-modal-open .info-card,
@@ -999,11 +1003,12 @@ h2,
 
   .nav-panel {
     position: fixed;
-    top: calc(env(safe-area-inset-top, 0px) + 4.85rem);
+    top: env(safe-area-inset-top, 0px);
     left: 0.75rem;
     right: 0.75rem;
-    z-index: 25;
+    z-index: 30;
     margin-top: 0;
+    margin-bottom: 0;
     padding: 0.85rem 1rem;
   }
 
@@ -1017,8 +1022,8 @@ h2,
 
   footer {
     position: fixed !important;
-    top: calc(env(safe-area-inset-top, 0px) + 0.5rem);
-    bottom: auto !important;
+    top: auto !important;
+    bottom: env(safe-area-inset-bottom, 0px) !important;
     left: 0.75rem;
     right: 0.75rem;
     z-index: 30;
