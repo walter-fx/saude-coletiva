@@ -1,0 +1,115 @@
+{
+    "autor": "Prof. Enf. Walter Rocha",
+    "turma": "1 modulo - Marques de Olinda",
+    "disciplina": "Saúde Coletiva",
+    "questoes": [
+        {
+            "enunciado": "Os programas de saúde no SUS são planejados pelos órgãos governamentais de saúde e executados de acordo com a realidade de cada comunidade. Nesse contexto, qual é o papel das Unidades Básicas de Saúde (UBS) na execução desses programas?",
+            "nivel": "Fácil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Aplicar os programas de saúde considerando as necessidades locais da população",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque a UBS atua diretamente no território, executando os programas conforme a realidade social, epidemiológica e cultural da comunidade atendida."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Substituir os hospitais em todos os níveis de atenção à saúde",
+                    "correta": false,
+                    "comentario": "Essa alternativa não está adequada porque a UBS faz parte principalmente da atenção primária e não substitui serviços hospitalares ou de maior complexidade."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Atuar somente em campanhas de vacinação e ações emergenciais",
+                    "correta": false,
+                    "comentario": "Essa alternativa reduz de forma indevida o papel da UBS, que desenvolve ações contínuas de promoção, prevenção, acompanhamento e tratamento, e não apenas campanhas ou urgências."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Executar apenas ordens administrativas sem adaptar o cuidado à comunidade",
+                    "correta": false,
+                    "comentario": "Essa alternativa não corresponde à prática do SUS, pois a execução local exige adequação às necessidades da população e análise da realidade do território."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "As UBS são fundamentais na atenção primária porque colocam em prática os programas de saúde de acordo com as necessidades reais de cada comunidade.",
+            "referencias": [
+                "BRASIL. Lei nº 8.080, de 19 de setembro de 1990.",
+                "BRASIL. Ministério da Saúde. Política Nacional de Atenção Básica."
+            ]
+        },
+        {
+            "enunciado": "Na atenção à saúde da mulher, o SUS desenvolve ações que acompanham diferentes fases da vida. Qual alternativa apresenta corretamente exemplos dessas ações?",
+            "nivel": "Fácil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Pré-natal, prevenção do câncer ginecológico e prevenção do câncer de mama",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque reúne ações clássicas e essenciais da atenção integral à saúde da mulher, incluindo cuidado preventivo e acompanhamento em diferentes fases da vida."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Somente internação hospitalar durante o trabalho de parto",
+                    "correta": false,
+                    "comentario": "Essa alternativa está incompleta porque a atenção à mulher não se limita ao momento do parto, abrangendo prevenção, acompanhamento e promoção da saúde ao longo do ciclo vital."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Apenas consultas para prescrição de medicamentos",
+                    "correta": false,
+                    "comentario": "Essa alternativa não representa a integralidade do cuidado, pois o atendimento à mulher inclui ações preventivas, educativas, de rastreamento e acompanhamento contínuo."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Exclusivamente orientações sobre planejamento familiar",
+                    "correta": false,
+                    "comentario": "Planejamento familiar é importante, mas sozinho não contempla toda a assistência à saúde da mulher prevista no SUS."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A atenção à saúde da mulher no SUS inclui pré-natal, prevenção de câncer ginecológico e de mama, entre outras ações de cuidado integral.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Política Nacional de Atenção Integral à Saúde da Mulher.",
+                "BRASIL. Lei nº 8.080, de 19 de setembro de 1990."
+            ]
+        },
+        {
+            "enunciado": "Durante a organização da geladeira doméstica utilizada na rede de frio, determinadas vacinas devem ficar na primeira prateleira por tolerarem temperatura negativa. Qual alternativa apresenta vacinas compatíveis com essa orientação?",
+            "nivel": "Difícil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Poliomielite, sarampo, febre amarela, rubéola e tríplice viral",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque reúne vacinas que, segundo a organização da geladeira na rede de frio, podem ocupar a primeira prateleira por tolerarem temperatura negativa."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Hepatite B, DTP, dT, Hib e BCG",
+                    "correta": false,
+                    "comentario": "Essas vacinas não devem ser submetidas à temperatura negativa, motivo pelo qual são organizadas em outra prateleira."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Influenza, TT e todos os diluentes",
+                    "correta": false,
+                    "comentario": "Esses produtos não correspondem ao grupo indicado para a primeira prateleira, especialmente por apresentarem outras exigências de conservação."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Somente vacinas bacterianas inativadas e soros",
+                    "correta": false,
+                    "comentario": "Essa afirmação não segue a recomendação de organização descrita para a geladeira doméstica da rede de frio."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "Na organização da geladeira doméstica da rede de frio, algumas vacinas tolerantes à temperatura negativa ficam na primeira prateleira, como poliomielite, sarampo, febre amarela, rubéola e tríplice viral.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Manual de Rede de Frio.",
+                "BRASIL. Ministério da Saúde. Manual de Normas e Procedimentos para Vacinação."
+            ]
+        }
+    ]
+}

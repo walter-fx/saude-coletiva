@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Questionário</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="./assets/images/logo-skinder3.png">
+  <link rel="stylesheet" href="./assets/css/questionario.css">
+</head>
+<body>
+  <main class="mx-auto max-w-5xl px-3 py-4 md:px-4 md:py-12">
+    <header class="hero-panel mb-4 overflow-hidden rounded-[2rem] border border-teal-100 p-4 md:mb-6 md:p-7 shadow-sm backdrop-blur-sm">
+      <div class="hero-grid grid gap-4 lg:grid-cols-[1.35fr_0.95fr] lg:items-start">
+        <div class="hero-copy">
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/70 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.22em] text-teal-700 shadow-sm">
+            <span class="hero-dot inline-block h-2 w-2 rounded-full bg-teal-500"></span>
+            <span id="meta-label">Exercício de Simulação</span>
+          </div>
+          <h1 id="meta-discipline" class="mt-4 flex items-center gap-3 text-3xl font-bold leading-tight md:text-5xl"><i class="bi bi-journal-richtext hero-heading-icon"></i><span>Questionário</span></h1>
+          <p class="hero-subtitle mt-3 max-w-2xl text-sm leading-6 text-slate-600 md:text-base">
+            Ambiente de treino com feedback imediato, progresso contínuo e leitura confortável para acompanhar cada etapa do questionário.
+          </p>
+
+          <div class="mt-[2.2rem] grid gap-3 max-w-xl sm:grid-cols-2">
+            <div class="info-card rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 shadow-sm">
+              <p class="info-label flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500"><i class="bi bi-person-badge"></i><span>Autor</span></p>
+              <p id="meta-author" class="mt-1 text-sm font-semibold text-slate-800 md:text-base">-</p>
+            </div>
+            <div class="info-card rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 shadow-sm">
+              <p class="info-label flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500"><i class="bi bi-people"></i><span>Turma</span></p>
+              <p id="meta-class" class="mt-1 text-sm font-semibold text-slate-800 md:text-base">-</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-side grid gap-3">
+          <div class="student-card rounded-2xl border border-slate-200 bg-white/88 p-4 shadow-sm">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <p class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-500"><i class="bi bi-person-circle"></i><span>Participante</span></p>
+                <p class="mt-2 text-sm font-semibold text-slate-800 md:text-base">
+                  Aluno(a): <span id="student-name">-</span>
+                </p>
+              </div>
+              <button id="btn-change-name" class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-50"><i class="bi bi-pencil-square me-1"></i>Alterar</button>
+            </div>
+          </div>
+
+          <div class="settings-box rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm">
+            <p class="settings-title flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-500"><i class="bi bi-sliders"></i><span>Configurações</span></p>
+            <div class="mt-3 flex items-center justify-between gap-3">
+              <div>
+                <p class="flex items-center gap-2 text-sm font-semibold text-slate-800"><i class="bi bi-moon-stars"></i><span>Tema</span></p>
+                <p class="text-xs text-slate-500">Ajuste visual para o ambiente de leitura</p>
+              </div>
+              <div class="form-check form-switch m-0">
+                <input class="form-check-input" type="checkbox" role="switch" id="theme-switch">
+                <label class="form-check-label text-xs font-semibold text-slate-700" for="theme-switch">Escuro</label>
+              </div>
+            </div>
+            <div class="mt-3 flex items-center justify-between gap-3 border-t border-slate-200 pt-3">
+              <div>
+                <p class="flex items-center gap-2 text-sm font-semibold text-slate-800"><i class="bi bi-type"></i><span>Fonte</span></p>
+                <p id="font-size-label" class="text-xs text-slate-500">Tamanho 100%</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <button id="btn-font-down" type="button" class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-50" aria-label="Diminuir fonte">A-</button>
+                <button id="btn-font-up" type="button" class="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-bold text-slate-700 hover:bg-slate-50" aria-label="Aumentar fonte">A+</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="stats-grid mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
+        <div class="metric-card rounded-2xl border border-slate-200 bg-white/85 p-4 shadow-sm">
+          <p class="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-slate-500 font-bold"><i class="bi bi-activity"></i><span>Progresso atual</span></p>
+          <p id="meta-step" class="mt-2 text-xl md:text-2xl font-extrabold text-slate-800">1</p>
+        </div>
+        <div class="metric-card metric-card-success rounded-2xl border border-emerald-200 bg-emerald-50/95 p-4 shadow-sm">
+          <p class="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-emerald-700 font-bold"><i class="bi bi-check2-circle"></i><span>Concluídas</span></p>
+          <p id="meta-done" class="mt-2 text-xl md:text-2xl font-extrabold text-emerald-800">0</p>
+        </div>
+        <div class="metric-card metric-card-info rounded-2xl border border-sky-200 bg-sky-50/95 p-4 shadow-sm">
+          <p class="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-sky-700 font-bold"><i class="bi bi-hourglass-split"></i><span>Restantes</span></p>
+          <p id="meta-left" class="mt-2 text-xl md:text-2xl font-extrabold text-sky-800">0</p>
+        </div>
+        <div class="metric-card metric-card-danger rounded-2xl border border-rose-200 bg-rose-50/95 p-4 shadow-sm">
+          <p class="flex items-center gap-2 text-[11px] uppercase tracking-[0.2em] text-rose-700 font-bold"><i class="bi bi-exclamation-octagon"></i><span>Erros</span></p>
+          <p id="meta-errors" class="mt-2 text-xl md:text-2xl font-extrabold text-rose-800">0</p>
+        </div>
+      </div>
+
+      <div class="nav-panel mt-5 rounded-2xl border border-slate-200 bg-white/88 p-4 shadow-sm">
+        <div class="mb-3 flex items-center justify-between gap-3">
+          <div>
+            <p class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-slate-500"><i class="bi bi-signpost-split"></i><span>Navegação do questionário</span></p>
+            <p class="mt-1 text-sm text-slate-600">Acompanhe visualmente seu avanço até a conclusão.</p>
+          </div>
+          <div class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-sm font-bold text-slate-700">
+            <span id="meta-percent-chip">0%</span>
+          </div>
+        </div>
+        <div class="progress-track h-4 w-full overflow-hidden rounded-full bg-slate-200/90">
+          <div id="progress" class="progress-bar h-full rounded-full" style="width:0%"></div>
+        </div>
+      </div>
+    </header>
+
+    <section id="quiz-card" class="rounded-3xl border border-slate-200 bg-white p-4 md:p-8 shadow-sm min-h-[360px] md:min-h-[420px]"></section>
+
+    <footer class="mt-4 sticky bottom-2 z-20 rounded-2xl border border-slate-200 bg-white/95 p-2 shadow-lg backdrop-blur-md md:mt-5 md:static md:rounded-none md:border-0 md:bg-transparent md:p-0 md:shadow-none">
+      <div class="flex flex-col gap-2 md:flex-row md:flex-wrap md:gap-2 md:justify-between md:items-center">
+        <button id="btn-prev" class="h-11 w-full md:w-auto rounded-xl border border-slate-300 px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed"><i class="bi bi-arrow-left me-1"></i>Anterior</button>
+        <div class="grid grid-cols-2 gap-2 w-full md:flex md:w-auto">
+          <button id="btn-check" class="h-11 rounded-xl bg-slate-900 text-white px-4 py-2 font-semibold hover:bg-slate-800 disabled:opacity-40 disabled:cursor-not-allowed"><i class="bi bi-send-check me-1"></i>Responder</button>
+          <button id="btn-next" class="h-11 rounded-xl bg-teal-600 text-white px-4 py-2 font-semibold hover:bg-teal-700 disabled:opacity-40 disabled:cursor-not-allowed">Próxima<i class="bi bi-arrow-right ms-1"></i></button>
+        </div>
+      </div>
+    </footer>
+  </main>
+  <script src="./assets/js/enviar_questionario.js" defer></script>
+  <script src="./assets/js/questionario.js" defer></script>
+</body>
+</html>

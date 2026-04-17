@@ -1,0 +1,1083 @@
+const DATA_FILE = "./saude_coletiva.json";
+const THEME_KEY = "questionario_theme_pref_v1";
+const FONT_SIZE_KEY = "questionario_font_scale_v1";
+const LAST_SESSION_KEY = "questionario_last_session_v1";
+const QUESTION_ORDER_KEY_SUFFIX = "question_order_v1";
+const TAB_SESSION_KEY_SUFFIX = "tab_session_v1";
+const QUESTION_LIMIT = 20;
+const FONT_SCALE_MIN = 0.9;
+const FONT_SCALE_MAX = 1.3;
+const FONT_SCALE_STEP = 0.1;
+let storageKey = "questionario_generico_v1";
+let renderedQuestionIndex = -1;
+
+const state = {
+    questions: [],
+    meta: {
+        autor: "",
+        turma: "",
+        disciplina: "",
+    },
+    index: 0,
+    picks: {},
+    completed: {},
+    errors: 0,
+    studentName: "",
+    finished: false,
+    sharedResult: false,
+};
+
+const el = {
+    quizCard: document.getElementById("quiz-card"),
+    progress: document.getElementById("progress"),
+    index: document.getElementById("meta-index"),
+    step: document.getElementById("meta-step"),
+    done: document.getElementById("meta-done"),
+    left: document.getElementById("meta-left"),
+    errors: document.getElementById("meta-errors"),
+    percent: document.getElementById("meta-percent"),
+    percentChip: document.getElementById("meta-percent-chip"),
+    author: document.getElementById("meta-author"),
+    className: document.getElementById("meta-class"),
+    disciplineTitle: document.getElementById("meta-discipline"),
+    label: document.getElementById("meta-label"),
+    theme: document.getElementById("theme-switch"),
+    fontDown: document.getElementById("btn-font-down"),
+    fontUp: document.getElementById("btn-font-up"),
+    fontLabel: document.getElementById("font-size-label"),
+    studentName: document.getElementById("student-name"),
+    changeName: document.getElementById("btn-change-name"),
+    prev: document.getElementById("btn-prev"),
+    next: document.getElementById("btn-next"),
+    check: document.getElementById("btn-check"),
+    footer: document.querySelector("footer"),
+};
+
+const stripAnsi = (text) => text.replace(/\u001B\[[0-9;]*[A-Za-z]/g, "");
+const themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
+
+function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+}
+
+function setText(node, value) {
+    if (node) node.textContent = value;
+}
+
+function wait(ms) {
+    return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
+async function showShuffleLoader(studentName = state.studentName) {
+    const firstName = escapeHtml(getFirstName(studentName) || "Participante");
+    await fireAlert({
+        title: `Bem-vindo(a) ${firstName}`,
+        html: `
+      <div class="shuffle-loader">
+        <div class="shuffle-loader-orbit" aria-hidden="true">
+          <span class="shuffle-loader-core"></span>
+          <span class="shuffle-loader-dot dot-1"></span>
+          <span class="shuffle-loader-dot dot-2"></span>
+          <span class="shuffle-loader-dot dot-3"></span>
+        </div>
+        <p class="shuffle-loader-text">Aguarde um instante, estamos sorteando as suas perguntas.</p>
+      </div>
+    `,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showConfirmButton: false,
+        didOpen: async () => {
+            await wait(5000);
+            Swal.close();
+        },
+    });
+}
+
+function escapeHtml(value) {
+    return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
+function getFirstName(fullName) {
+    return String(fullName || "").trim().split(/\s+/)[0] || "";
+}
+
+function getLevelIntensity(level) {
+    const normalized = slugify(level);
+    if (normalized === "facil") return "🔥";
+    if (normalized === "medio") return "🔥🔥";
+    if (normalized === "dificil") return "🔥🔥🔥";
+    return "🔥";
+}
+
+function shuffleArray(items) {
+    const cloned = [...items];
+    for (let index = cloned.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [cloned[index], cloned[randomIndex]] = [cloned[randomIndex], cloned[index]];
+    }
+    return cloned;
+}
+
+function getQuestionOrderKey() {
+    return `${storageKey}_${QUESTION_ORDER_KEY_SUFFIX}`;
+}
+
+function getTabSessionKey() {
+    return `${storageKey}_${TAB_SESSION_KEY_SUFFIX}`;
+}
+
+function getQuestionId(question, index) {
+    if (question.id) return String(question.id);
+    return `q_${index}_${slugify(question.enunciado).slice(0, 64)}`;
+}
+
+function setNameModalSkeleton(isOpen) {
+    document.body.classList.toggle("name-modal-open", isOpen);
+}
+
+function getSwalThemeClass() {
+    return document.documentElement.getAttribute("data-theme") === "dark"
+        ? "swal-theme-dark"
+        : "swal-theme-light";
+}
+
+function fireAlert(options) {
+    return Swal.fire({
+        ...options,
+        customClass: {
+            popup: `swal-theme ${getSwalThemeClass()}`,
+            confirmButton: "swal-confirm-btn",
+            cancelButton: "swal-cancel-btn",
+            ...(options.customClass || {}),
+        },
+        buttonsStyling: false,
+    });
+}
+
+function applyTheme(theme) {
+    const safeTheme = theme === "dark" ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", safeTheme);
+    el.theme.checked = safeTheme === "dark";
+}
+
+function initTheme() {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === "dark" || saved === "light") {
+        applyTheme(saved);
+        return;
+    }
+    applyTheme(themeMedia.matches ? "dark" : "light");
+}
+
+function toggleTheme() {
+    const next = el.theme.checked ? "dark" : "light";
+    applyTheme(next);
+    localStorage.setItem(THEME_KEY, next);
+}
+
+function updateFontControls(scale) {
+    const percent = Math.round(scale * 100);
+    document.documentElement.style.setProperty("--quiz-font-scale", String(scale));
+    setText(el.fontLabel, `Fonte ${percent}%`);
+    if (el.fontDown) el.fontDown.disabled = scale <= FONT_SCALE_MIN;
+    if (el.fontUp) el.fontUp.disabled = scale >= FONT_SCALE_MAX;
+}
+
+function initFontScale() {
+    const saved = Number.parseFloat(localStorage.getItem(FONT_SIZE_KEY) || "");
+    const scale = Number.isFinite(saved) ? clamp(saved, FONT_SCALE_MIN, FONT_SCALE_MAX) : 1;
+    updateFontControls(scale);
+}
+
+function changeFontScale(delta) {
+    const current = Number.parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue("--quiz-font-scale")
+    ) || 1;
+    const next = clamp(Number((current + delta).toFixed(2)), FONT_SCALE_MIN, FONT_SCALE_MAX);
+    updateFontControls(next);
+    localStorage.setItem(FONT_SIZE_KEY, String(next));
+}
+
+function persistSessionSnapshot() {
+    saveState();
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    if (currentTheme === "dark" || currentTheme === "light") {
+        localStorage.setItem(THEME_KEY, currentTheme);
+    }
+    const currentScale =
+        Number.parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue("--quiz-font-scale")
+        ) || 1;
+    localStorage.setItem(FONT_SIZE_KEY, String(currentScale));
+}
+
+function applyPersistentQuestionOrder(questions) {
+    const orderKey = getQuestionOrderKey();
+    const normalizedQuestions = questions.map((question, index) => ({
+        ...question,
+        _questionId: getQuestionId(question, index),
+    }));
+
+    let storedOrder = [];
+    try {
+        storedOrder = JSON.parse(localStorage.getItem(orderKey) || "[]");
+    } catch (_) {
+        storedOrder = [];
+    }
+
+    const byId = new Map(normalizedQuestions.map((question) => [question._questionId, question]));
+    const orderedQuestions = [];
+
+    if (Array.isArray(storedOrder) && storedOrder.length > 0) {
+        storedOrder.forEach((questionId) => {
+            if (orderedQuestions.length >= QUESTION_LIMIT) return;
+            if (!byId.has(questionId)) return;
+            orderedQuestions.push(byId.get(questionId));
+            byId.delete(questionId);
+        });
+    }
+
+    const remainingQuestions = shuffleArray(Array.from(byId.values()));
+    const seededQuestions =
+        orderedQuestions.length > 0 ? [...orderedQuestions, ...remainingQuestions] : shuffleArray(normalizedQuestions);
+    const finalQuestions = seededQuestions.slice(0, Math.min(QUESTION_LIMIT, seededQuestions.length));
+
+    localStorage.setItem(
+        orderKey,
+        JSON.stringify(finalQuestions.map((question) => question._questionId))
+    );
+
+    return finalQuestions.map((question) => ({
+        ...question,
+        alternativas: shuffleArray(question.alternativas || []),
+    }));
+}
+
+function slugify(value) {
+    return (
+        String(value || "questionario")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "_")
+            .replace(/^_+|_+$/g, "") || "questionario"
+    );
+}
+
+function saveState() {
+    const data = {
+        index: state.index,
+        picks: state.picks,
+        completed: state.completed,
+        errors: state.errors,
+        studentName: state.studentName,
+        finished: !!state.finished,
+        sharedResult: !!state.sharedResult,
+        updatedAt: new Date().toISOString(),
+    };
+    localStorage.setItem(storageKey, JSON.stringify(data));
+    localStorage.setItem(
+        LAST_SESSION_KEY,
+        JSON.stringify({
+            storageKey,
+            questionOrderKey: getQuestionOrderKey(),
+            disciplina: state.meta.disciplina || "",
+            turma: state.meta.turma || "",
+            studentName: state.studentName || "",
+            updatedAt: data.updatedAt,
+        })
+    );
+}
+
+function restoreState() {
+    try {
+        const raw = localStorage.getItem(storageKey);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        state.index = Number.isInteger(data.index) ? data.index : 0;
+        state.picks = data.picks && typeof data.picks === "object" ? data.picks : {};
+        state.completed = data.completed && typeof data.completed === "object" ? data.completed : {};
+        state.errors = Number.isFinite(data.errors) ? data.errors : 0;
+        state.studentName = typeof data.studentName === "string" ? data.studentName.trim() : "";
+        state.finished = !!data.finished;
+        state.sharedResult = !!data.sharedResult;
+        return data;
+    } catch (_) {
+        // Ignore invalid persisted data
+    }
+    return null;
+}
+
+function sanitizeRestoredState() {
+    const max = Math.max(0, state.questions.length - 1);
+    if (!Number.isInteger(state.index) || state.index < 0) state.index = 0;
+    if (state.index > max) state.index = max;
+
+    const validPicks = {};
+    for (const [k, v] of Object.entries(state.picks || {})) {
+        const idx = Number(k);
+        if (!Number.isInteger(idx) || idx < 0 || idx > max) continue;
+        if (typeof v !== "string" || !/^[A-D]$/.test(v)) continue;
+        validPicks[idx] = v;
+    }
+    state.picks = validPicks;
+
+    const validCompleted = {};
+    for (const [k, v] of Object.entries(state.completed || {})) {
+        const idx = Number(k);
+        if (!Number.isInteger(idx) || idx < 0 || idx > max) continue;
+        validCompleted[idx] = !!v;
+    }
+    state.completed = validCompleted;
+    if (!Number.isFinite(state.errors) || state.errors < 0) state.errors = 0;
+    state.finished = !!state.finished && state.questions.length > 0;
+    state.sharedResult = !!state.sharedResult && state.questions.length > 0;
+}
+
+async function ensureStudentName() {
+    if (state.studentName) return;
+    while (!state.studentName) {
+        setNameModalSkeleton(true);
+        try {
+            const result = await fireAlert({
+                title: "👋 Olá, como se chama?",
+                input: "text",
+                inputPlaceholder: "Digite seu nome",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                confirmButtonText: "Vamos começar",
+                inputValidator: (value) => {
+                    if (!value || !value.trim()) return "Informe seu nome para continuar.";
+                    return null;
+                },
+            });
+            state.studentName = String(result.value || "").trim();
+            if (state.studentName) {
+                const sender = window.EnviarQuestionario;
+                if (sender && typeof sender.sendEvent === "function") {
+                    sender.sendEvent(getEventPayload("entrada")).catch(() => { });
+                }
+                await showShuffleLoader();
+            }
+        } finally {
+            setNameModalSkeleton(false);
+        }
+    }
+    saveState();
+}
+
+async function changeStudentName() {
+    let result;
+    result = await fireAlert({
+        title: "Alterar nome",
+        input: "text",
+        inputValue: state.studentName || "",
+        inputPlaceholder: "Digite o novo nome",
+        showCancelButton: true,
+        confirmButtonText: "Salvar",
+        cancelButtonText: "Cancelar",
+        inputValidator: (value) => {
+            if (!value || !value.trim()) return "Informe um nome válido.";
+            return null;
+        },
+    });
+    if (!result.isConfirmed) return;
+    const previousName = state.studentName;
+    const nextName = String(result.value || "").trim();
+    if (!nextName || nextName === state.studentName) return;
+    setNameModalSkeleton(true);
+    try {
+        const sender = window.EnviarQuestionario;
+        if (sender && typeof sender.sendEvent === "function") {
+            sender.sendEvent(
+                getEventPayload("alteracao_nome", {
+                    aluno: nextName,
+                    nomeAnterior: previousName,
+                })
+            ).catch(() => { });
+        }
+        await showShuffleLoader();
+    } finally {
+        setNameModalSkeleton(false);
+    }
+    resetQuizSession(nextName);
+}
+
+async function loadData() {
+    const response = await fetch(DATA_FILE, { cache: "no-store" });
+    if (!response.ok) throw new Error(`Não foi possível carregar ${DATA_FILE}.`);
+    const raw = await response.text();
+    const clean = stripAnsi(raw);
+    const parsed = JSON.parse(clean);
+    if (!parsed.questoes || !Array.isArray(parsed.questoes)) {
+        throw new Error('JSON sem lista "questões"');
+    }
+    if (parsed.questoes.length === 0) throw new Error("JSON sem questões válidas");
+    state.meta = {
+        autor: parsed.autor || "-",
+        turma: parsed.turma || "-",
+        disciplina: parsed.disciplina || "Questionário",
+    };
+    storageKey = `questionario_${slugify(state.meta.disciplina)}_${slugify(state.meta.turma)}_v1`;
+    state.questions = applyPersistentQuestionOrder(parsed.questoes);
+}
+
+function syncMeta() {
+    setText(el.author, state.meta.autor || "-");
+    setText(el.className, state.meta.turma || "-");
+    setText(el.disciplineTitle, state.meta.disciplina || "Questionário");
+    setText(el.label, "Exercício de Simulação");
+    document.title = `Questionário - ${state.meta.disciplina || "Questionário"}`;
+}
+
+function hasSavedProgress(restoredData) {
+    if (!restoredData || typeof restoredData !== "object") return false;
+    const hasPicks = restoredData.picks && Object.keys(restoredData.picks).length > 0;
+    const hasCompleted = restoredData.completed && Object.keys(restoredData.completed).length > 0;
+    const hasErrors = Number.isFinite(restoredData.errors) && restoredData.errors > 0;
+    const hasAdvanced = Number.isInteger(restoredData.index) && restoredData.index > 0;
+    return !!(hasPicks || hasCompleted || hasErrors || hasAdvanced);
+}
+
+async function maybeShowResumeNotice(restoredData) {
+    if (!hasSavedProgress(restoredData)) return;
+    if (sessionStorage.getItem(getTabSessionKey())) return;
+    const lastSessionRaw = localStorage.getItem(LAST_SESSION_KEY);
+    const firstName = getFirstName(state.studentName || restoredData?.studentName);
+    let lastSavedText = "Ultimo salvamento recente";
+
+    try {
+        const lastSession = JSON.parse(lastSessionRaw || "{}");
+        if (lastSession.updatedAt) {
+            const date = new Date(lastSession.updatedAt);
+            if (!Number.isNaN(date.getTime())) {
+                lastSavedText = date.toLocaleString("pt-BR");
+            }
+        }
+    } catch (_) {
+        // Keep fallback subtitle
+    }
+
+    await fireAlert({
+        icon: "info",
+        title: "Sessão restaurada",
+        html: `
+      <div class="text-left space-y-3">
+        <p class="text-sm font-semibold">Bem vindo(a) novamente ${escapeHtml(firstName || "por aqui")}</p>
+        <div class="grid gap-2 text-sm">
+          <div><b>Disciplina:</b> ${escapeHtml(state.meta.disciplina || "-")}</div>
+          <div><b>Turma:</b> ${escapeHtml(state.meta.turma || "-")}</div>
+          <div><b>Questão retomada:</b> ${state.index + 1}/${state.questions.length}</div>
+          <div><b>Respostas registradas:</b> ${Object.keys(state.picks || {}).length}</div>
+          <div><b>Questões concluídas:</b> ${Object.keys(state.completed || {}).length}</div>
+          <div><b>Erros acumulados:</b> ${state.errors}</div>
+          <div><b>Último salvamento:</b> ${escapeHtml(lastSavedText)}</div>
+        </div>
+      </div>
+    `,
+        confirmButtonText: "Continuar",
+    });
+}
+
+function currentQuestion() {
+    return state.questions[state.index];
+}
+
+function isCompleted() {
+    return !!state.completed[state.index];
+}
+
+function celebrateHit() {
+    if (typeof confetti !== "function") return;
+    const count = 180;
+    const defaults = {
+        origin: { y: 0.65 },
+        zIndex: 99999,
+    };
+    function burst(particleRatio, opts) {
+        confetti({ ...defaults, ...opts, particleCount: Math.floor(count * particleRatio) });
+    }
+    burst(0.25, { spread: 30, startVelocity: 55 });
+    burst(0.2, { spread: 70 });
+    burst(0.35, { spread: 110, decay: 0.92, scalar: 0.9 });
+    burst(0.2, { spread: 135, startVelocity: 30, decay: 0.94, scalar: 1.05 });
+}
+
+function isLastQuestion() {
+    return state.index === state.questions.length - 1;
+}
+
+function getPerformanceSummary() {
+    const total = state.questions.length || 1;
+    const errors = Math.max(0, state.errors);
+    const rawAccuracy = ((total - errors) / total) * 100;
+    const accuracy = Math.max(0, Math.round(rawAccuracy));
+    const correctAnswers = Math.max(0, total - errors);
+
+    if (accuracy >= 90) {
+        return {
+            label: "excelente",
+            stars: 5,
+            accentClass: "excellent",
+            title: "mandou muito bem!",
+            phrase: "Excelente! Você praticamente gabaritou — mostrou que domina o conteúdo com segurança.",
+            accuracy,
+            correctAnswers,
+        };
+    }
+
+    if (accuracy >= 75) {
+        return {
+            label: "ótimo",
+            stars: 4,
+            accentClass: "great",
+            title: "quase lá!",
+            phrase: "Ótimo desempenho! Você está muito perto do nível máximo, só ajustar alguns detalhes.",
+            accuracy,
+            correctAnswers,
+        };
+    }
+
+    if (accuracy >= 55) {
+        return {
+            label: "bom",
+            stars: 3,
+            accentClass: "good",
+            title: "tá no caminho certo",
+            phrase: "Bom trabalho! Você foi bem, mas ainda dá pra evoluir e ganhar mais consistência.",
+            accuracy,
+            correctAnswers,
+        };
+    }
+
+    return {
+        label: "medio",
+        stars: 2,
+        accentClass: "fair",
+        title: "bora melhorar",
+        phrase: "Você conseguiu concluir, agora é revisar e tentar de novo — a evolução vem rápido.",
+        accuracy,
+        correctAnswers,
+    };
+}
+
+function getResultPayload() {
+    const total = state.questions.length;
+    const performance = getPerformanceSummary();
+    const now = new Date();
+
+    return {
+        aluno: state.studentName || "Participante",
+        turma: state.meta.turma || "-",
+        disciplina: state.meta.disciplina || "Questionário",
+        totalQuestoes: total,
+        erros: state.errors,
+        acertos: performance.correctAnswers,
+        aproveitamento: performance.accuracy,
+        desempenho: performance.label,
+        estrelas: performance.stars,
+        questaoAtual: state.finished ? "Questionário finalizado" : `Questão ${state.index + 1}/${total}`,
+        dataHora: now.toLocaleString("pt-BR"),
+    };
+}
+
+function getEventPayload(tipo, overrides = {}) {
+    const now = new Date();
+
+    return {
+        tipo,
+        aluno: overrides.aluno || state.studentName || "Participante",
+        nomeAnterior: overrides.nomeAnterior || "",
+        turma: state.meta.turma || "-",
+        disciplina: state.meta.disciplina || "Questionário",
+        dataHora: now.toLocaleString("pt-BR"),
+    };
+}
+
+function celebrateFinalResult(stars) {
+    if (typeof confetti !== "function") return;
+    const bursts = Math.max(2, stars);
+    for (let index = 0; index < bursts; index += 1) {
+        confetti({
+            particleCount: 90,
+            spread: 70 + index * 6,
+            startVelocity: 30 + index * 2,
+            scalar: 0.9 + index * 0.04,
+            zIndex: 99999,
+            origin: {
+                x: 0.18 + index * (0.64 / Math.max(1, bursts - 1)),
+                y: 0.62 - Math.min(index * 0.03, 0.18),
+            },
+        });
+    }
+}
+
+function buildFinalMarkup() {
+    const total = state.questions.length;
+    const performance = getPerformanceSummary();
+    const firstName = getFirstName(state.studentName) || "Jogador";
+    const authorName = escapeHtml(state.meta.autor || "autor");
+    const scoreAngle = `${Math.max(0, Math.min(360, Math.round((performance.accuracy / 100) * 360)))}deg`;
+    const sendButtonLabel = state.sharedResult ? "Seu desempenho já foi compartilhado" : "Compartilhar desempenho com o autor";
+    const sendButtonIcon = state.sharedResult ? "bi-check2-circle" : "bi-cloud-arrow-up-fill";
+    const sendButtonClass = state.sharedResult ? "result-submit-button is-shared" : "result-submit-button pulse-next";
+    const starsMarkup = Array.from({ length: 5 }, (_, index) => {
+        const isEarned = index < performance.stars;
+        return `
+      <span
+        class="result-star ${isEarned ? "is-earned" : "is-empty"}"
+        style="--star-delay:${index * 0.16}s"
+        aria-hidden="true"
+      >⭐</span>
+    `;
+    }).join("");
+
+    return `
+    <article class="results-shell ${performance.accentClass} fade-in">
+      <div class="results-burst results-burst-left"></div>
+      <div class="results-burst results-burst-right"></div>
+      <div class="results-head">
+        <span class="results-chip"><i class="bi bi-trophy-fill"></i> Resultado final</span>
+        <h2 class="title-font results-title">${escapeHtml(firstName)}, ${performance.title}</h2>
+        <p class="results-subtitle">${escapeHtml(performance.phrase)}</p>
+      </div>
+
+      <div class="results-score">
+        <div class="score-ring" style="--score-angle:${scoreAngle}">
+          <span class="score-ring-value">${performance.accuracy}%</span>
+          <span class="score-ring-label">Aproveitamento</span>
+        </div>
+        <div class="score-copy">
+          <div class="results-stars results-stars-inline" aria-label="${performance.stars} de 5 estrelas">
+            ${starsMarkup}
+          </div>
+          <p class="score-label">Desempenho ${performance.label}</p>
+          <p class="score-text">Você concluiu ${total} perguntas com ${state.errors} erro(s).</p>
+        </div>
+      </div>
+
+      <div class="results-grid">
+        <div class="results-stat">
+          <span class="results-stat-label">Questões</span>
+          <strong>${total}</strong>
+        </div>
+        <div class="results-stat">
+          <span class="results-stat-label">Erros</span>
+          <strong>${state.errors}</strong>
+        </div>
+        <div class="results-stat">
+          <span class="results-stat-label">Saldo</span>
+          <strong>${performance.correctAnswers}</strong>
+        </div>
+        <div class="results-stat">
+          <span class="results-stat-label">Nivel</span>
+          <strong>${performance.label}</strong>
+        </div>
+      </div>
+
+      <div class="results-cta">
+        <button
+          type="button"
+          class="${sendButtonClass}"
+          data-action="send-to-author"
+          ${state.sharedResult ? "disabled" : ""}
+        >
+          <i class="bi ${sendButtonIcon}"></i>
+          <span>${sendButtonLabel}</span>
+        </button>
+        <p class="results-helper">No próximo passo vamos ligar esse envio ao servidor para entregar seu resultado a ${authorName}.</p>
+      </div>
+
+      <div class="results-secondary-cta">
+        <button
+          type="button"
+          class="result-restart-button"
+          data-action="restart-quiz"
+        >
+          <i class="bi bi-arrow-repeat"></i>
+          <span>Refazer questionário</span>
+        </button>
+      </div>
+    </article>
+  `;
+}
+
+function resetQuizSession(nextStudentName = state.studentName) {
+    if (typeof Swal !== "undefined") {
+        Swal.close();
+    }
+    renderedQuestionIndex = -1;
+    state.index = 0;
+    state.picks = {};
+    state.completed = {};
+    state.errors = 0;
+    state.finished = false;
+    state.sharedResult = false;
+    state.studentName = String(nextStudentName || "").trim();
+    saveState();
+    render();
+}
+
+function pick(letter) {
+    if (isCompleted()) return;
+    state.picks[state.index] = letter;
+    saveState();
+    render();
+}
+
+async function checkAnswer() {
+    const q = currentQuestion();
+    const selected = state.picks[state.index];
+    if (!selected) return;
+
+    if (selected === q.gabarito) {
+        state.completed[state.index] = true;
+        saveState();
+        celebrateHit();
+        await fireAlert({
+            icon: "success",
+            title: "Você acertou",
+            html: "Muito bem! <br/>Confira a resposta e avance para a próxima.",
+            confirmButtonText: "Fechar",
+        });
+        render();
+        return;
+    }
+
+    state.errors += 1;
+    saveState();
+    const result = await fireAlert({
+        icon: "error",
+        title: "Você errou",
+        text: "Não tem problema. Deseja tentar novamente?",
+        confirmButtonText: "Tentar novamente",
+    });
+
+    if (result.isConfirmed) state.picks[state.index] = null;
+    saveState();
+    render();
+}
+
+function next() {
+    if (state.finished) return;
+    if (state.index < state.questions.length - 1) {
+        state.index += 1;
+        saveState();
+        render();
+        return;
+    }
+
+    if (!isCompleted()) return;
+    state.finished = true;
+    saveState();
+    celebrateFinalResult(getPerformanceSummary().stars);
+    render();
+}
+
+function prev() {
+    if (state.index > 0) {
+        state.index -= 1;
+        saveState();
+        render();
+    }
+}
+
+function getSelectedAlternative(question, letter) {
+    return question.alternativas.find((alt) => alt.letra === letter) || null;
+}
+
+function getPendingStatusHtml(question, selected) {
+    return "";
+}
+
+function getDoneStatusHtml(question) {
+    const references = Array.isArray(question.referencias) && question.referencias.length > 0
+        ? `
+      <div class="mt-4 border-t border-emerald-200 pt-4">
+        <p class="text-xs uppercase tracking-wide text-emerald-800 font-bold">Referências</p>
+        <ol class="mt-2 space-y-2 text-sm text-emerald-800">
+          ${question.referencias.map((item) => `<li>${item}</li>`).join("")}
+        </ol>
+      </div>
+    `
+        : "";
+
+    return `
+    <div class="status-panel mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+      <p class="font-bold text-emerald-800">Resposta correta.</p>
+      <p class="mt-1 text-sm text-emerald-800">${question.comentario_resposta_certa || `Gabarito: ${question.gabarito}.`}</p>
+      ${references}
+    </div>
+  `;
+}
+
+function buildQuestionMarkup(question) {
+    const levelBadge = question.nivel
+        ? `<span class="inline-flex shrink-0 items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-700"><span>${getLevelIntensity(question.nivel)}</span><span>${escapeHtml(question.nivel)}</span></span>`
+        : "";
+
+    const optionsHtml = question.alternativas
+        .map((a) => {
+            return `
+        <button class="option w-full min-h-16 text-left rounded-2xl p-4" data-letter="${a.letra}" type="button">
+          <div class="flex items-start gap-3">
+            <span class="alt-badge mt-0.5 inline-flex h-8 w-8 items-center justify-center rounded-full text-xs font-bold">${a.letra}</span>
+            <div class="flex-1">
+              <div class="flex items-start justify-between gap-3">
+                <p class="font-semibold text-slate-800">${a.texto}</p>
+                <span class="option-state rounded-full bg-slate-900 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white" data-state-for="${a.letra}"></span>
+              </div>
+              <p class="option-comment mt-2 text-sm" data-comment-for="${a.letra}"></p>
+            </div>
+          </div>
+        </button>
+      `;
+        })
+        .join("");
+
+    return `
+    <article class="quiz-shell fade-in">
+      <div class="mb-3 flex items-start justify-between gap-3">
+        <h2 class="title-font text-xl font-bold leading-tight md:text-2xl">${question.enunciado}</h2>
+        ${levelBadge}
+      </div>
+      <div class="mt-5 grid gap-3">${optionsHtml}</div>
+      <div id="question-status"></div>
+    </article>
+  `;
+}
+
+function syncQuestionCard() {
+    const q = currentQuestion();
+    const selected = state.picks[state.index];
+    const done = isCompleted();
+    const statusEl = document.getElementById("question-status");
+    const buttons = el.quizCard.querySelectorAll("[data-letter]");
+
+    buttons.forEach((button) => {
+        const letter = button.dataset.letter;
+        const alt = getSelectedAlternative(q, letter);
+        const commentEl = button.querySelector(`[data-comment-for="${letter}"]`);
+        const stateEl = button.querySelector(`[data-state-for="${letter}"]`);
+        const isSel = selected === letter;
+        const isRight = done && letter === q.gabarito;
+        const isWrongSel = done && isSel && letter !== q.gabarito;
+
+        button.classList.toggle("selected", isSel && !done);
+        button.classList.toggle("correct", isRight);
+        button.classList.toggle("wrong", isWrongSel);
+
+        if (commentEl) {
+            commentEl.textContent = done ? alt?.comentario || "" : "";
+            commentEl.className = `option-comment mt-2 text-sm ${done ? "visible" : ""} ${alt?.correta ? "text-emerald-700" : "text-slate-600"}`;
+        }
+
+        if (stateEl) {
+            if (done && isRight) {
+                stateEl.textContent = "Correta";
+                stateEl.className = "option-state rounded-full bg-emerald-600 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white";
+            } else if (done && isWrongSel) {
+                stateEl.textContent = "Sua escolha";
+                stateEl.className = "option-state rounded-full bg-rose-600 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white";
+            } else if (isSel) {
+                stateEl.textContent = "Selecionada";
+                stateEl.className = "option-state rounded-full bg-teal-600 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white";
+            } else {
+                stateEl.textContent = "";
+                stateEl.className = "option-state rounded-full bg-slate-900 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-white";
+            }
+        }
+    });
+
+    if (statusEl) {
+        statusEl.innerHTML = done ? getDoneStatusHtml(q) : getPendingStatusHtml(q, selected);
+    }
+}
+
+function render() {
+    const doneCount = Object.keys(state.completed).length;
+    const total = state.questions.length;
+    const leftCount = Math.max(0, total - doneCount);
+    const navPercent = state.finished ? 100 : Math.round((doneCount / Math.max(1, total)) * 100);
+
+    if (state.finished) {
+        setText(el.index, "Resultado final");
+        setText(el.step, `${total}/${total}`);
+        setText(el.done, String(doneCount));
+        setText(el.left, "0");
+        setText(el.errors, String(state.errors));
+        setText(el.percent, "100%");
+        setText(el.percentChip, "100%");
+        setText(el.studentName, state.studentName || "-");
+        if (el.progress) el.progress.style.width = "100%";
+        if (el.footer) el.footer.classList.add("hidden");
+        el.quizCard.innerHTML = buildFinalMarkup();
+        return;
+    }
+
+    if (el.footer) el.footer.classList.remove("hidden");
+    const q = currentQuestion();
+
+    setText(el.index, `Questão ${state.index + 1}/${total}`);
+    setText(el.step, `${state.index + 1}/${total}`);
+    setText(el.done, String(doneCount));
+    setText(el.left, String(leftCount));
+    setText(el.errors, String(state.errors));
+    setText(el.percent, `${navPercent}%`);
+    setText(el.percentChip, `${navPercent}%`);
+    setText(el.studentName, state.studentName || "-");
+    if (el.progress) el.progress.style.width = `${navPercent}%`;
+
+    if (el.prev) el.prev.disabled = state.index === 0;
+    if (el.check) el.check.disabled = !state.picks[state.index] || isCompleted();
+    if (el.next) {
+        el.next.disabled = !isCompleted();
+        el.next.innerHTML = isLastQuestion()
+            ? 'Finalizar<i class="bi bi-flag-fill ms-1"></i>'
+            : 'Próxima<i class="bi bi-arrow-right ms-1"></i>';
+    }
+    if (el.check) el.check.classList.toggle("pulse-next", !!state.picks[state.index] && !isCompleted());
+    if (el.next) {
+        el.next.classList.toggle("pulse-next", !el.next.disabled);
+        el.next.classList.toggle("finish-mode", isLastQuestion());
+    }
+
+    if (renderedQuestionIndex !== state.index || !el.quizCard.querySelector(".quiz-shell")) {
+        el.quizCard.innerHTML = buildQuestionMarkup(q);
+        renderedQuestionIndex = state.index;
+    }
+
+    syncQuestionCard();
+}
+
+if (el.check) el.check.addEventListener("click", checkAnswer);
+if (el.next) el.next.addEventListener("click", next);
+if (el.prev) el.prev.addEventListener("click", prev);
+if (el.theme) el.theme.addEventListener("change", toggleTheme);
+if (el.fontDown) el.fontDown.addEventListener("click", () => changeFontScale(-FONT_SCALE_STEP));
+if (el.fontUp) el.fontUp.addEventListener("click", () => changeFontScale(FONT_SCALE_STEP));
+if (el.changeName) el.changeName.addEventListener("click", changeStudentName);
+if (el.quizCard) {
+    el.quizCard.addEventListener("click", (event) => {
+        const actionButton = event.target.closest("[data-action]");
+        if (actionButton?.dataset.action === "send-to-author") {
+            if (state.sharedResult) return;
+            const sender = window.EnviarQuestionario;
+            if (!sender || typeof sender.sendResult !== "function") {
+                fireAlert({
+                    icon: "error",
+                    title: "Envio indisponível",
+                    text: "O módulo de envio não foi carregado.",
+                    confirmButtonText: "Fechar",
+                });
+                return;
+            }
+
+            const payload = getResultPayload();
+            fireAlert({
+                title: "Enviando ao autor...",
+                html: `
+          <div class="shuffle-loader">
+            <div class="shuffle-loader-orbit" aria-hidden="true">
+              <span class="shuffle-loader-core"></span>
+              <span class="shuffle-loader-dot dot-1"></span>
+              <span class="shuffle-loader-dot dot-2"></span>
+              <span class="shuffle-loader-dot dot-3"></span>
+            </div>
+            <p class="shuffle-loader-text">Compartilhando o seu desempenho com o autor do questionário.</p>
+          </div>
+        `,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showConfirmButton: false,
+                didOpen: async () => {
+                    const result = await sender.sendResult(payload);
+                    Swal.close();
+
+                    if (!result.ok) {
+                        fireAlert({
+                            icon: "error",
+                            title: "Não foi possível enviar",
+                            text: result.message || "Falha ao compartilhar o resultado com o autor.",
+                            confirmButtonText: "Fechar",
+                        });
+                        return;
+                    }
+
+                    state.sharedResult = true;
+                    saveState();
+                    render();
+                    fireAlert({
+                        icon: "success",
+                        title: "Resultado enviado",
+                        text: "O seu desempenho foi compartilhado com sucesso.",
+                        confirmButtonText: "Finalizar",
+                    });
+                },
+            });
+            return;
+        }
+
+        if (actionButton?.dataset.action === "restart-quiz") {
+            fireAlert({
+                icon: "question",
+                title: "Refazer questionário?",
+                text: "Seu progresso atual sera reiniciado e voce voltara para a primeira pergunta.",
+                showCancelButton: true,
+                confirmButtonText: "Refazer agora",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (!result.isConfirmed) return;
+                resetQuizSession();
+            });
+            return;
+        }
+
+        const button = event.target.closest("[data-letter]");
+        if (!button) return;
+        pick(button.dataset.letter);
+    });
+}
+
+themeMedia.addEventListener("change", (event) => {
+    const saved = localStorage.getItem(THEME_KEY);
+    if (saved === "dark" || saved === "light") return;
+    applyTheme(event.matches ? "dark" : "light");
+});
+
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+        persistSessionSnapshot();
+    }
+});
+
+window.addEventListener("pagehide", persistSessionSnapshot);
+window.addEventListener("beforeunload", persistSessionSnapshot);
+
+(async () => {
+    try {
+        initTheme();
+        initFontScale();
+        await loadData();
+        const restoredData = restoreState();
+        sanitizeRestoredState();
+        syncMeta();
+        await maybeShowResumeNotice(restoredData);
+        sessionStorage.setItem(getTabSessionKey(), "active");
+        await ensureStudentName();
+        saveState();
+        render();
+    } catch (err) {
+        el.quizCard.innerHTML = `
+      <div class="rounded-2xl border border-rose-200 bg-rose-50 p-5">
+        <h2 class="font-bold text-rose-800">Erro ao carregar o questionário</h2>
+        <p class="mt-2 text-rose-700 text-sm">${err.message}</p>
+      </div>
+    `;
+    }
+})();
