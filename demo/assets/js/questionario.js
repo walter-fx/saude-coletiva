@@ -617,6 +617,17 @@ function celebrateFinalResult(stars) {
     }
 }
 
+function scrollResultsIntoView() {
+    window.requestAnimationFrame(() => {
+        const resultsBox = el.quizCard?.querySelector(".results-shell") || el.quizCard;
+        if (!resultsBox) return;
+        resultsBox.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    });
+}
+
 function buildFinalMarkup() {
     const total = state.questions.length;
     const performance = getPerformanceSummary();
@@ -819,7 +830,7 @@ function getDoneStatusHtml(question) {
 
 function buildQuestionMarkup(question) {
     const levelBadge = question.nivel
-        ? `<span class="inline-flex shrink-0 items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-700"><span>${getLevelIntensity(question.nivel)}</span><span>${escapeHtml(question.nivel)}</span></span>`
+        ? `<span class="question-level-badge"><span>${getLevelIntensity(question.nivel)}</span><span>${escapeHtml(question.nivel)}</span></span>`
         : "";
 
     const optionsHtml = question.alternativas
@@ -843,8 +854,8 @@ function buildQuestionMarkup(question) {
 
     return `
     <article class="quiz-shell fade-in">
-      <div class="mb-3 flex items-start justify-between gap-3">
-        <h2 class="title-font text-xl font-bold leading-tight md:text-2xl">${question.enunciado}</h2>
+      <div class="question-head">
+        <h2 class="question-title title-font text-xl font-bold leading-tight md:text-2xl">${question.enunciado}</h2>
         ${levelBadge}
       </div>
       <div class="mt-5 grid gap-3">${optionsHtml}</div>
@@ -918,6 +929,7 @@ function render() {
         if (el.progress) el.progress.style.width = "100%";
         if (el.footer) el.footer.classList.add("hidden");
         el.quizCard.innerHTML = buildFinalMarkup();
+        scrollResultsIntoView();
         return;
     }
 
