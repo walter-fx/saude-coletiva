@@ -1,0 +1,799 @@
+{
+    "autor": "Prof. Enf. Walter Rocha",
+    "turma": "1 modulo - Marques de Olinda",
+    "disciplina": "Saúde Coletiva",
+    "questoes": [
+        {
+            "enunciado": "Os programas de saúde no SUS são planejados pelos órgãos governamentais de saúde e executados de acordo com a realidade de cada comunidade. Nesse contexto, qual é o papel das Unidades Básicas de Saúde (UBS) na execução desses programas?",
+            "nivel": "Fácil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Aplicar os programas de saúde considerando as necessidades locais da população",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque a UBS atua diretamente no território, executando os programas conforme a realidade social, epidemiológica e cultural da comunidade atendida."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Substituir os hospitais em todos os níveis de atenção à saúde",
+                    "correta": false,
+                    "comentario": "Essa alternativa não está adequada porque a UBS faz parte principalmente da atenção primária e não substitui serviços hospitalares ou de maior complexidade."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Atuar somente em campanhas de vacinação e ações emergenciais",
+                    "correta": false,
+                    "comentario": "Essa alternativa reduz de forma indevida o papel da UBS, que desenvolve ações contínuas de promoção, prevenção, acompanhamento e tratamento, e não apenas campanhas ou urgências."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Executar apenas ordens administrativas sem adaptar o cuidado à comunidade",
+                    "correta": false,
+                    "comentario": "Essa alternativa não corresponde à prática do SUS, pois a execução local exige adequação às necessidades da população e análise da realidade do território."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "As UBS são fundamentais na atenção primária porque colocam em prática os programas de saúde de acordo com as necessidades reais de cada comunidade.",
+            "referencias": [
+                "BRASIL. Lei nº 8.080, de 19 de setembro de 1990.",
+                "BRASIL. Ministério da Saúde. Política Nacional de Atenção Básica."
+            ]
+        },
+        {
+            "enunciado": "Na atenção à saúde da mulher, o SUS desenvolve ações que acompanham diferentes fases da vida. Qual alternativa apresenta corretamente exemplos dessas ações?",
+            "nivel": "Fácil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Pré-natal, prevenção do câncer ginecológico e prevenção do câncer de mama",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque reúne ações clássicas e essenciais da atenção integral à saúde da mulher, incluindo cuidado preventivo e acompanhamento em diferentes fases da vida."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Somente internação hospitalar durante o trabalho de parto",
+                    "correta": false,
+                    "comentario": "Essa alternativa está incompleta porque a atenção à mulher não se limita ao momento do parto, abrangendo prevenção, acompanhamento e promoção da saúde ao longo do ciclo vital."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Apenas consultas para prescrição de medicamentos",
+                    "correta": false,
+                    "comentario": "Essa alternativa não representa a integralidade do cuidado, pois o atendimento à mulher inclui ações preventivas, educativas, de rastreamento e acompanhamento contínuo."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Exclusivamente orientações sobre planejamento familiar",
+                    "correta": false,
+                    "comentario": "Planejamento familiar é importante, mas sozinho não contempla toda a assistência à saúde da mulher prevista no SUS."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A atenção à saúde da mulher no SUS inclui pré-natal, prevenção de câncer ginecológico e de mama, entre outras ações de cuidado integral.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Política Nacional de Atenção Integral à Saúde da Mulher.",
+                "BRASIL. Lei nº 8.080, de 19 de setembro de 1990."
+            ]
+        },
+        {
+            "enunciado": "Entre as ações voltadas à saúde da criança realizadas na rede pública, destaca-se o acompanhamento do crescimento e desenvolvimento. Qual alternativa também faz parte desse conjunto de ações?",
+            "nivel": "Fácil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Promoção do aleitamento materno",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque o aleitamento materno é uma estratégia essencial para a saúde infantil, contribuindo para nutrição, imunidade e desenvolvimento da criança."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Controle de doenças ocupacionais do adulto",
+                    "correta": false,
+                    "comentario": "Essa alternativa se relaciona à saúde do trabalhador e não ao conjunto de ações específicas voltadas à criança."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Atendimento exclusivo para cirurgias eletivas",
+                    "correta": false,
+                    "comentario": "Cirurgias eletivas não representam o foco principal da saúde da criança na atenção básica, que privilegia acompanhamento, prevenção e promoção da saúde."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Acompanhamento apenas após os 12 anos de idade",
+                    "correta": false,
+                    "comentario": "O acompanhamento infantil começa desde os primeiros momentos de vida, sendo contínuo e fundamental nos primeiros anos."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A promoção do aleitamento materno integra as ações da saúde da criança por favorecer crescimento, proteção imunológica e desenvolvimento saudável.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Saúde da Criança: Crescimento e Desenvolvimento.",
+                "BRASIL. Ministério da Saúde. Política Nacional de Atenção Básica."
+            ]
+        },
+        {
+            "enunciado": "No SUS, a saúde do adolescente deve considerar diferentes aspectos do desenvolvimento humano. Qual alternativa representa melhor essa proposta?",
+            "nivel": "Fácil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Acompanhamento do desenvolvimento, sexualidade, saúde mental, saúde bucal, saúde escolar e atividades culturais",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque contempla a abordagem integral da adolescência, incluindo aspectos biológicos, emocionais, sociais e educacionais."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Realização apenas de campanhas de vacinação em época escolar",
+                    "correta": false,
+                    "comentario": "Vacinação é importante, mas não resume a assistência ao adolescente, que exige cuidado ampliado e contínuo."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Atendimento restrito a situações de urgência e emergência",
+                    "correta": false,
+                    "comentario": "O cuidado ao adolescente não deve ocorrer apenas quando há agravos imediatos, mas também por meio de prevenção, educação e acompanhamento."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Foco exclusivo em doenças sexualmente transmissíveis",
+                    "correta": false,
+                    "comentario": "A saúde sexual é relevante, porém a atenção ao adolescente é mais ampla e inclui outras dimensões do desenvolvimento."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A saúde do adolescente no SUS deve ser integral, abrangendo desenvolvimento físico, emocional, social, escolar e reprodutivo.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Proteger e Cuidar da Saúde de Adolescentes na Atenção Básica.",
+                "BRASIL. Lei nº 8.080, de 19 de setembro de 1990."
+            ]
+        },
+        {
+            "enunciado": "A saúde do trabalhador envolve ações de promoção e proteção da saúde. Qual alternativa expressa corretamente essa finalidade?",
+            "nivel": "Fácil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Promover e proteger a saúde dos trabalhadores por meio de ações de vigilância epidemiológica e sanitária",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque descreve a essência da saúde do trabalhador, que busca prevenir agravos relacionados ao trabalho e proteger a saúde laboral."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Realizar apenas perícias para afastamento previdenciário",
+                    "correta": false,
+                    "comentario": "A saúde do trabalhador vai além de perícias, incluindo vigilância, prevenção, promoção e acompanhamento de riscos e agravos."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Atender somente acidentes ocorridos dentro de fábricas",
+                    "correta": false,
+                    "comentario": "A assistência não se limita a acidentes em fábricas, pois abrange diferentes ambientes e riscos ocupacionais."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Substituir completamente os serviços de segurança do trabalho das empresas",
+                    "correta": false,
+                    "comentario": "O SUS atua na vigilância e cuidado em saúde, mas isso não significa substituir integralmente as estruturas internas das empresas."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A saúde do trabalhador busca prevenir doenças e agravos relacionados ao trabalho, promovendo condições mais seguras e saudáveis.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Saúde do Trabalhador e da Trabalhadora.",
+                "BRASIL. Lei nº 8.080, de 19 de setembro de 1990."
+            ]
+        },
+        {
+            "enunciado": "Um dos programas assistenciais do SUS prioriza o acompanhamento de agravos específicos como hipertensão arterial, diabetes mellitus, tuberculose e hanseníase. Qual é a principal finalidade desse acompanhamento?",
+            "nivel": "Médio",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Melhorar as condições de saúde do portador por meio de assistência, orientações, exames, acompanhamento e tratamento",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque resume a lógica do acompanhamento contínuo dessas condições, incluindo assistência clínica, vigilância e tratamento medicamentoso quando necessário."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Restringir o atendimento desses pacientes apenas aos hospitais de referência",
+                    "correta": false,
+                    "comentario": "Esses agravos também são acompanhados na atenção básica, que possui importante papel no controle, monitoramento e continuidade do cuidado."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Encerrar o seguimento após a primeira consulta médica",
+                    "correta": false,
+                    "comentario": "Essas doenças exigem acompanhamento longitudinal, monitoramento da evolução e adesão ao tratamento."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Atender apenas quando surgirem complicações graves",
+                    "correta": false,
+                    "comentario": "O objetivo do programa é justamente evitar complicações por meio de ações preventivas e acompanhamento regular."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "O acompanhamento desses agravos busca controlar a doença, reduzir complicações e melhorar a qualidade de vida do paciente.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Cadernos de Atenção Básica.",
+                "BRASIL. Ministério da Saúde. Estratégias para o cuidado da pessoa com doença crônica."
+            ]
+        },
+        {
+            "enunciado": "Na atenção à saúde mental, o cuidado deve ser realizado por equipe multiprofissional. Qual alternativa apresenta profissionais compatíveis com esse tipo de assistência?",
+            "nivel": "Médio",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Psicólogos, assistentes sociais, equipe de enfermagem, psiquiatras e terapeutas ocupacionais",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque descreve uma equipe multiprofissional capaz de atender diferentes dimensões do sofrimento psíquico e da reabilitação psicossocial."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Somente médicos plantonistas e técnicos administrativos",
+                    "correta": false,
+                    "comentario": "Essa composição é insuficiente para a complexidade do cuidado em saúde mental, que exige abordagem interdisciplinar."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Apenas profissionais de enfermagem, sem necessidade de outros saberes",
+                    "correta": false,
+                    "comentario": "A enfermagem é essencial, mas a atenção em saúde mental requer integração de diferentes áreas para atendimento mais completo."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Exclusivamente psiquiatras, pois os demais profissionais não participam do tratamento",
+                    "correta": false,
+                    "comentario": "O tratamento em saúde mental não se restringe ao ato médico e depende da atuação conjunta de vários profissionais."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A saúde mental exige equipe multiprofissional para oferecer atendimento individual e coletivo com foco clínico, social e terapêutico.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Saúde Mental no SUS: os Centros de Atenção Psicossocial.",
+                "BRASIL. Lei nº 10.216, de 6 de abril de 2001."
+            ]
+        },
+        {
+            "enunciado": "A Política Nacional de Promoção da Saúde busca intervir em fatores que colocam a população em risco. Qual alternativa representa corretamente esse objetivo?",
+            "nivel": "Médio",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Promover qualidade de vida e atuar sobre fatores como sedentarismo, alimentação inadequada e uso do tabaco",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque expressa a proposta da promoção da saúde, que vai além do tratamento e atua sobre hábitos e condições que favorecem o adoecimento."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Priorizar apenas ações hospitalares de alta complexidade",
+                    "correta": false,
+                    "comentario": "A promoção da saúde não se limita à alta complexidade; ela trabalha principalmente com prevenção, educação e melhoria das condições de vida."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Atender somente pessoas já diagnosticadas com doenças crônicas",
+                    "correta": false,
+                    "comentario": "O foco da promoção da saúde inclui toda a população, inclusive pessoas sem doença instalada, com o objetivo de reduzir riscos."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Executar ações isoladas sem continuidade no território",
+                    "correta": false,
+                    "comentario": "A promoção da saúde exige continuidade, integralidade e vínculo com a população e o território."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A promoção da saúde atua sobre fatores de risco e fortalece hábitos e condições que favorecem melhor qualidade de vida.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Política Nacional de Promoção da Saúde.",
+                "BRASIL. Lei nº 8.080, de 19 de setembro de 1990."
+            ]
+        },
+        {
+            "enunciado": "O Programa Nacional de Imunizações (PNI) obteve avanços importantes no Brasil. Qual alternativa descreve corretamente uma atribuição desse programa?",
+            "nivel": "Médio",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Adquirir, distribuir e normatizar o uso de imunobiológicos, além de consolidar dados de cobertura vacinal",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque o PNI organiza a vacinação no país, regula imunobiológicos e acompanha os dados para avaliação das coberturas vacinais."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Executar exclusivamente campanhas municipais sem coordenação nacional",
+                    "correta": false,
+                    "comentario": "O PNI possui coordenação ampla e nacional, articulando ações em todo o território brasileiro."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Atender apenas pacientes internados em hospitais públicos",
+                    "correta": false,
+                    "comentario": "A vacinação organizada pelo PNI atende diferentes grupos populacionais e não se restringe ao ambiente hospitalar."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Limitar a vacinação apenas à infância, sem contemplar outras fases da vida",
+                    "correta": false,
+                    "comentario": "O PNI abrange diversos ciclos de vida e grupos específicos, não ficando restrito à infância."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "O PNI é responsável por organizar tecnicamente a imunização no país, incluindo aquisição, distribuição, normas e informações de cobertura vacinal.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Programa Nacional de Imunizações.",
+                "BRASIL. Ministério da Saúde. Manual de Normas e Procedimentos para Vacinação."
+            ]
+        },
+        {
+            "enunciado": "Os imunobiológicos são sensíveis a agentes físicos. Entre os fatores abaixo, quais são especialmente prejudiciais para sua conservação?",
+            "nivel": "Médio",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Luz e calor",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque calor e luz podem comprometer a potência e a estabilidade dos imunobiológicos, reduzindo sua eficácia."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Som e umidade do ambiente externo",
+                    "correta": false,
+                    "comentario": "Esses fatores não são os principais responsáveis pela inativação dos imunobiológicos no contexto da rede de frio."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Contato com papel e plástico de embalagem",
+                    "correta": false,
+                    "comentario": "O uso de embalagens apropriadas não representa o principal risco à conservação quando o armazenamento está adequado."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Movimentação do profissional durante a vacinação",
+                    "correta": false,
+                    "comentario": "A movimentação do profissional não é o fator central de perda de potência; o problema principal está na exposição inadequada à luz e ao calor."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "Os imunobiológicos precisam ser protegidos principalmente da luz e do calor para manter sua eficácia até o momento da administração.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Manual de Rede de Frio.",
+                "BRASIL. Ministério da Saúde. Manual de Normas e Procedimentos para Vacinação."
+            ]
+        },
+        {
+            "enunciado": "A rede de frio é um sistema de conservação dos imunobiológicos desde o laboratório produtor até a administração. Qual alternativa define corretamente esse sistema?",
+            "nivel": "Médio",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Conjunto de procedimentos de armazenamento, transporte e manipulação em condições adequadas de refrigeração",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque a rede de frio envolve todas as etapas necessárias para garantir a conservação adequada dos imunobiológicos."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Estrutura utilizada apenas para fabricação de vacinas em laboratório",
+                    "correta": false,
+                    "comentario": "A fabricação é etapa industrial e não corresponde ao conceito de rede de frio, que se refere à conservação e distribuição."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Sistema exclusivo de transporte entre municípios sem controle térmico",
+                    "correta": false,
+                    "comentario": "Sem controle térmico não há preservação adequada dos produtos, o que descaracteriza a rede de frio."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Método utilizado somente nas salas de vacina de hospitais",
+                    "correta": false,
+                    "comentario": "A rede de frio não se limita ao hospital e abrange várias instâncias, do nível nacional ao local."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A rede de frio garante que os imunobiológicos mantenham suas características de conservação em todas as etapas até a administração.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Manual de Rede de Frio.",
+                "BRASIL. Ministério da Saúde. Manual de Normas e Procedimentos para Vacinação."
+            ]
+        },
+        {
+            "enunciado": "Na instância local da rede de frio, como centros de saúde, postos, ambulatórios e hospitais, em que faixa de temperatura os imunobiológicos devem ser conservados?",
+            "nivel": "Médio",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Entre +2°C e +8°C",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque, na instância local, os imunobiológicos são mantidos em temperatura positiva controlada, normalmente em refrigeradores ou caixas térmicas."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Entre -20°C e -10°C",
+                    "correta": false,
+                    "comentario": "Essa faixa pode ser utilizada em outras instâncias ou para produtos específicos, mas não corresponde à conservação geral na instância local."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Entre 0°C e +1°C",
+                    "correta": false,
+                    "comentario": "Essa temperatura não corresponde à recomendação geral para a instância local e pode representar risco para alguns imunobiológicos sensíveis ao congelamento."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Entre +10°C e +15°C",
+                    "correta": false,
+                    "comentario": "Essa faixa é inadequada para conservação de vacinas, pois favorece perda de potência."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "Na instância local, a faixa de +2°C a +8°C é a recomendada para conservação segura dos imunobiológicos.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Manual de Rede de Frio.",
+                "BRASIL. Ministério da Saúde. Manual de Normas e Procedimentos para Vacinação."
+            ]
+        },
+        {
+            "enunciado": "Em relação às contraindicações à vacinação com vacinas de vírus vivos atenuados ou bactérias atenuadas, qual alternativa está correta?",
+            "nivel": "Médio",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Essas vacinas não devem ser administradas, em regra, a pessoas com imunodeficiência adquirida ou congênita",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque imunodeficiências aumentam o risco de complicações com vacinas vivas atenuadas, exigindo avaliação criteriosa."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Podem ser aplicadas livremente durante qualquer gravidez, sem exceções",
+                    "correta": false,
+                    "comentario": "Na gestação, vacinas vivas atenuadas são geralmente contraindicadas, salvo situações específicas de alto risco e orientação técnica."
+                },
+                {
+                    "letra": "C",
+                    "texto": "São indicadas de forma obrigatória para pacientes em quimioterapia ativa",
+                    "correta": false,
+                    "comentario": "Pacientes em quimioterapia apresentam imunossupressão e exigem grande cautela, o que torna essa afirmação inadequada."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Devem ser aplicadas logo após tratamento imunossupressor em altas doses, sem necessidade de adiamento",
+                    "correta": false,
+                    "comentario": "Após uso de imunossupressores em altas doses, a vacinação com vacinas vivas geralmente precisa ser adiada para maior segurança e melhor resposta imunológica."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "Vacinas vivas atenuadas exigem avaliação cuidadosa e, em regra, não devem ser administradas em pessoas imunodeprimidas.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Manual de Normas e Procedimentos para Vacinação.",
+                "BRASIL. Ministério da Saúde. Contraindicações e precauções em imunização."
+            ]
+        },
+        {
+            "enunciado": "Algumas situações não constituem contraindicação verdadeira à vacinação. Qual alternativa apresenta um exemplo de falsa contraindicação?",
+            "nivel": "Médio",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Tosse, coriza e diarreia leve ou moderada",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque quadros leves, sem gravidade, não impedem a vacinação na maioria dos casos."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Neoplasia maligna em tratamento imunossupressor",
+                    "correta": false,
+                    "comentario": "Essa condição requer avaliação rigorosa e não pode ser tratada como falsa contraindicação, especialmente para vacinas vivas."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Gravidez em situação sem avaliação clínica",
+                    "correta": false,
+                    "comentario": "A gestação exige análise específica do tipo de vacina e não pode ser considerada, de modo geral, uma falsa contraindicação."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Paciente em quimioterapia com imunossupressão importante",
+                    "correta": false,
+                    "comentario": "Esse quadro representa situação de risco e não se encaixa como falsa contraindicação."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "Sintomas leves, como tosse, coriza e diarreia leve, geralmente não impedem a vacinação e não devem ser usados como motivo injustificado para adiar doses.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Manual de Normas e Procedimentos para Vacinação.",
+                "BRASIL. Ministério da Saúde. Programa Nacional de Imunizações."
+            ]
+        },
+        {
+            "enunciado": "No início do trabalho diário na sala de vacinação, a equipe precisa seguir rotinas específicas. Qual alternativa corresponde corretamente a uma dessas ações?",
+            "nivel": "Médio",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Verificar e registrar a temperatura do refrigerador no mapa de controle diário",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque o controle diário da temperatura é essencial para garantir a conservação adequada dos imunobiológicos."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Retirar todas as vacinas do refrigerador e deixá-las expostas até o fim do turno",
+                    "correta": false,
+                    "comentario": "Essa prática compromete a conservação dos imunobiológicos, pois aumenta o tempo de exposição fora das condições ideais."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Ignorar o prazo de validade e utilizar primeiro qualquer frasco disponível",
+                    "correta": false,
+                    "comentario": "A equipe deve justamente observar a validade e priorizar os imunobiológicos com vencimento mais próximo."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Manter a sala aberta e desorganizada para facilitar o acesso do público",
+                    "correta": false,
+                    "comentario": "A organização e a limpeza são requisitos fundamentais para o funcionamento seguro da sala de vacinação."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "O registro diário da temperatura é etapa obrigatória da rotina da sala de vacinação e ajuda a garantir segurança e qualidade dos imunobiológicos.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Manual de Rede de Frio.",
+                "BRASIL. Ministério da Saúde. Manual de Normas e Procedimentos para Vacinação."
+            ]
+        },
+        {
+            "enunciado": "Ao final do expediente na sala de vacinação, algumas condutas devem ser adotadas para manter a segurança do serviço. Qual alternativa está correta?",
+            "nivel": "Médio",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Desprezar sobras de vacinas cujo prazo de uso após abertura tenha sido ultrapassado",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque vacinas com prazo de uso vencido após abertura não devem ser mantidas para aplicação posterior."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Guardar frascos com rótulo danificado para uso no dia seguinte",
+                    "correta": false,
+                    "comentario": "Frascos com rótulo danificado não devem ser utilizados, pois comprometem a identificação e a segurança do produto."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Deixar a caixa térmica fechada com vacinas dentro até a manhã seguinte, sem reavaliação",
+                    "correta": false,
+                    "comentario": "Ao final do expediente, é necessário reorganizar corretamente os imunobiológicos, retornando os aproveitáveis ao local adequado e descartando os vencidos."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Encerrar as atividades sem verificar novamente a temperatura do refrigerador",
+                    "correta": false,
+                    "comentario": "A verificação e o registro da temperatura também fazem parte do encerramento seguro da rotina da sala de vacinação."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "No encerramento do expediente, as sobras de vacinas com prazo de uso vencido após abertura devem ser descartadas para evitar riscos ao usuário.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Manual de Normas e Procedimentos para Vacinação.",
+                "BRASIL. Ministério da Saúde. Manual de Rede de Frio."
+            ]
+        },
+        {
+            "enunciado": "A vigilância epidemiológica compreende um conjunto de ações voltadas ao conhecimento e à prevenção de mudanças nos fatores que determinam a saúde da população. Qual é a finalidade principal dessas ações?",
+            "nivel": "Difícil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Recomendar e adotar medidas de prevenção e controle dos agravos à saúde",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque a vigilância epidemiológica busca identificar situações relevantes de saúde e orientar ações oportunas para prevenir e controlar agravos."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Atuar somente após a instalação de epidemias de grande porte",
+                    "correta": false,
+                    "comentario": "A vigilância epidemiológica não atua apenas em crises amplas; ela também identifica mudanças precoces e situações de risco antes do agravamento."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Substituir integralmente o atendimento clínico nas unidades de saúde",
+                    "correta": false,
+                    "comentario": "A vigilância complementa o cuidado assistencial, mas não substitui o atendimento clínico prestado aos usuários."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Produzir diagnósticos laboratoriais sem participar da prevenção",
+                    "correta": false,
+                    "comentario": "Os dados laboratoriais podem subsidiar a vigilância, mas a finalidade principal inclui análise, prevenção, controle e tomada de decisão em saúde pública."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A vigilância epidemiológica permite conhecer a situação de saúde e orientar medidas concretas de prevenção e controle no âmbito individual e coletivo.",
+            "referencias": [
+                "BRASIL. Lei nº 8.080, de 19 de setembro de 1990.",
+                "BRASIL. Ministério da Saúde. Guia de Vigilância em Saúde."
+            ]
+        },
+        {
+            "enunciado": "A notificação ativa é um importante instrumento da vigilância epidemiológica. Em qual situação ela ocorre?",
+            "nivel": "Difícil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Quando os serviços de saúde realizam busca periódica de casos que não foram captados pelo sistema de notificação",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque a notificação ativa envolve procura intencional de casos em hospitais, laboratórios, prontuários e outras fontes."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Quando se informa mensalmente que nenhuma ocorrência foi registrada",
+                    "correta": false,
+                    "comentario": "Essa definição corresponde à notificação negativa, e não à notificação ativa."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Quando apenas o paciente comunica espontaneamente a própria doença ao serviço de saúde",
+                    "correta": false,
+                    "comentario": "A notificação ativa parte da iniciativa do serviço ou da vigilância, e não exclusivamente da procura espontânea do usuário."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Quando a comunicação é feita somente após confirmação laboratorial definitiva",
+                    "correta": false,
+                    "comentario": "A vigilância muitas vezes trabalha com suspeitas e busca precoce de casos, não apenas após confirmação final."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A notificação ativa é uma estratégia de busca deliberada de casos não notificados, fortalecendo a vigilância e ampliando a detecção de agravos.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Guia de Vigilância em Saúde.",
+                "BRASIL. Ministério da Saúde. Vigilância Epidemiológica."
+            ]
+        },
+        {
+            "enunciado": "A notificação negativa é utilizada em determinadas situações da vigilância epidemiológica. Qual alternativa explica corretamente esse procedimento?",
+            "nivel": "Difícil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Consiste em informar periodicamente a ausência de casos de determinada doença, mantendo o serviço em estado de vigilância",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque a notificação negativa confirma que houve observação ativa do evento, mesmo sem ocorrência de casos."
+                },
+                {
+                    "letra": "B",
+                    "texto": "É a comunicação utilizada somente quando há surto confirmado em um município",
+                    "correta": false,
+                    "comentario": "Surto exige notificação obrigatória, mas isso não define o conceito de notificação negativa."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Representa o cancelamento definitivo da vigilância sobre uma doença erradicada",
+                    "correta": false,
+                    "comentario": "Mesmo em doenças eliminadas ou em controle, a vigilância deve continuar para detectar possíveis reintroduções."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Corresponde ao registro feito apenas quando o paciente se recusa a informar seus dados",
+                    "correta": false,
+                    "comentario": "Essa situação não define notificação negativa, que se refere à ausência de casos em determinado período."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A notificação negativa reforça a vigilância contínua, demonstrando que a ausência de casos foi verificada e comunicada ao sistema de saúde.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Guia de Vigilância em Saúde.",
+                "BRASIL. Ministério da Saúde. Vigilância Epidemiológica."
+            ]
+        },
+        {
+            "enunciado": "Em relação à Lista Nacional de Notificação Compulsória, qual alternativa está correta?",
+            "nivel": "Difícil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "A suspeita ou confirmação de doenças, agravos e eventos listados deve ser comunicada obrigatoriamente à autoridade de saúde",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque a notificação compulsória se aplica tanto a suspeitas quanto a confirmações, permitindo resposta mais rápida em saúde pública."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Somente médicos de hospitais públicos podem realizar a notificação compulsória",
+                    "correta": false,
+                    "comentario": "A notificação pode ser realizada por profissionais de saúde e responsáveis por estabelecimentos públicos ou privados, não ficando restrita ao médico."
+                },
+                {
+                    "letra": "C",
+                    "texto": "A lista nacional impede estados e municípios de incluírem outros agravos relevantes",
+                    "correta": false,
+                    "comentario": "Estados e municípios podem acrescentar problemas relevantes para sua realidade epidemiológica local."
+                },
+                {
+                    "letra": "D",
+                    "texto": "A comunicação é facultativa quando o caso ainda está em investigação",
+                    "correta": false,
+                    "comentario": "A obrigatoriedade existe justamente para permitir investigação e resposta precoces, sem necessidade de aguardar conclusão definitiva."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "A notificação compulsória deve ocorrer diante de suspeita ou confirmação dos eventos listados, contribuindo para resposta oportuna da vigilância em saúde.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Guia de Vigilância em Saúde.",
+                "BRASIL. Portaria de Consolidação nº 4, de 28 de setembro de 2017."
+            ]
+        },
+        {
+            "enunciado": "Sobre os eventos adversos pós-vacinação (EAPV), assinale a alternativa correta.",
+            "nivel": "Difícil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Todo evento adverso após vacinação deve ser entendido como necessariamente causado pela vacina",
+                    "correta": false,
+                    "comentario": "Essa afirmação está incorreta porque um evento adverso pós-vacinação pode ocorrer após a aplicação sem que exista, obrigatoriamente, relação causal com o imunobiológico."
+                },
+                {
+                    "letra": "B",
+                    "texto": "EAPV é qualquer ocorrência médica indesejada após a vacinação, com ou sem relação causal comprovada",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque define adequadamente o conceito de EAPV, incluindo manifestações clínicas ou laboratoriais observadas após a vacinação."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Somente eventos graves, como anafilaxia, são considerados EAPV",
+                    "correta": false,
+                    "comentario": "Eventos leves, como febre, dor e edema local, também podem ser classificados como EAPV, além dos eventos graves."
+                },
+                {
+                    "letra": "D",
+                    "texto": "EAPV ocorre exclusivamente por erro de técnica da equipe de enfermagem",
+                    "correta": false,
+                    "comentario": "Erros de técnica podem gerar eventos, mas o conceito de EAPV é mais amplo e inclui eventos esperados, inesperados e situações sem nexo causal comprovado."
+                }
+            ],
+            "gabarito": "B",
+            "comentario_resposta_certa": "Evento adverso pós-vacinação é qualquer ocorrência médica indesejada após a vacinação, não sendo obrigatória a comprovação imediata de relação causal com a vacina.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Manual de Vigilância Epidemiológica de Eventos Adversos Pós-Vacinação.",
+                "BRASIL. Ministério da Saúde. Programa Nacional de Imunizações."
+            ]
+        },
+        {
+            "enunciado": "Durante a organização da geladeira doméstica utilizada na rede de frio, determinadas vacinas devem ficar na primeira prateleira por tolerarem temperatura negativa. Qual alternativa apresenta vacinas compatíveis com essa orientação?",
+            "nivel": "Difícil",
+            "alternativas": [
+                {
+                    "letra": "A",
+                    "texto": "Poliomielite, sarampo, febre amarela, rubéola e tríplice viral",
+                    "correta": true,
+                    "comentario": "Essa alternativa está correta porque reúne vacinas que, segundo a organização da geladeira na rede de frio, podem ocupar a primeira prateleira por tolerarem temperatura negativa."
+                },
+                {
+                    "letra": "B",
+                    "texto": "Hepatite B, DTP, dT, Hib e BCG",
+                    "correta": false,
+                    "comentario": "Essas vacinas não devem ser submetidas à temperatura negativa, motivo pelo qual são organizadas em outra prateleira."
+                },
+                {
+                    "letra": "C",
+                    "texto": "Influenza, TT e todos os diluentes",
+                    "correta": false,
+                    "comentario": "Esses produtos não correspondem ao grupo indicado para a primeira prateleira, especialmente por apresentarem outras exigências de conservação."
+                },
+                {
+                    "letra": "D",
+                    "texto": "Somente vacinas bacterianas inativadas e soros",
+                    "correta": false,
+                    "comentario": "Essa afirmação não segue a recomendação de organização descrita para a geladeira doméstica da rede de frio."
+                }
+            ],
+            "gabarito": "A",
+            "comentario_resposta_certa": "Na organização da geladeira doméstica da rede de frio, algumas vacinas tolerantes à temperatura negativa ficam na primeira prateleira, como poliomielite, sarampo, febre amarela, rubéola e tríplice viral.",
+            "referencias": [
+                "BRASIL. Ministério da Saúde. Manual de Rede de Frio.",
+                "BRASIL. Ministério da Saúde. Manual de Normas e Procedimentos para Vacinação."
+            ]
+        }
+    ]
+}
